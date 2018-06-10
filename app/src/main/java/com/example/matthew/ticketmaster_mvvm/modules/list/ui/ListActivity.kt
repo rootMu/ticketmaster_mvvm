@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.matthew.ticketmaster_mvvm.ListAdapter
 import com.example.matthew.ticketmaster_mvvm.R
+import com.example.matthew.ticketmaster_mvvm.model.Event
 import com.example.matthew.ticketmaster_mvvm.modules.list.viewmodel.ListViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_list.*
@@ -27,7 +28,7 @@ class ListActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshList
     @Inject
     lateinit var mViewModelFactory: ViewModelProvider.Factory
 
-    private var mEventList: ArrayList<String> = ArrayList()
+    private var mEventList: ArrayList<Event> = ArrayList()
 
     private var mViewModel: ListViewModel? = null
 
@@ -62,7 +63,7 @@ class ListActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshList
         
         //set recyclerview
         list.layoutManager = LinearLayoutManager(this)
-        list.adapter = ListAdapter(mEventList, { eventData: String -> favouriteEvent(eventData) })
+        list.adapter = ListAdapter(mEventList, { eventData: Event -> favouriteEvent(eventData.name) })
         list.setHasFixedSize(true)
     }
 
@@ -78,16 +79,21 @@ class ListActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshList
      * starts listening to live data changes
      */
     private fun listenToLiveData() {
-        mViewModel?.mTicketLiveData?.observe(this, Observer { ticketData ->
+        mViewModel?.mEventLiveData?.observe(this, Observer { eventData ->
 
-            ticketData?.let {
+            eventData?.let {
 
                 if (it.isEmpty()) {
 
-                    Log.d(TAG,"there is no ticket Data")
+                    Log.d(TAG,"there is no event Data")
 
                 } else {
-                    //update view with data
+                    mEventList.clear()
+                    it.forEach {
+                        mEventList.add(it)
+                    }
+                    list.adapter.notifyDataSetChanged()
+                    swipe_container.isRefreshing = false
                 }
             }
         })
@@ -111,7 +117,7 @@ class ListActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshList
      * called whenever the swipe refresh is needing to refresh
      */
     override fun onRefresh() {
-        //Implement view model api call from here
+        getEvents()
     }
 
 

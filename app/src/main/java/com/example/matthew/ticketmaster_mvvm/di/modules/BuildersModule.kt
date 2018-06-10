@@ -5,7 +5,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 /**
- * Created by Matthew on 10/06/2018.
+ * All Activities being injected into
+ * @author Matthew Howells
  */
 @Module
 abstract class BuildersModule {

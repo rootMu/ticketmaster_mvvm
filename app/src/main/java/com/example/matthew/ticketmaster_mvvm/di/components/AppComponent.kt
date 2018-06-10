@@ -1,8 +1,7 @@
 package com.example.matthew.ticketmaster_mvvm.di.components
 
 import android.app.Application
-import com.example.matthew.ticketmaster_mvvm.di.modules.BuildersModule
-import com.example.matthew.ticketmaster_mvvm.di.modules.ViewModelFactoryModule
+import com.example.matthew.ticketmaster_mvvm.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -18,7 +17,10 @@ import javax.inject.Singleton
 @Component(modules = [
 AndroidSupportInjectionModule::class,
 BuildersModule::class,
-ViewModelFactoryModule::class
+ViewModelFactoryModule::class,
+ApiModule::class,
+HttpModule::class,
+AppModule::class
 ])
 interface AppComponent : AndroidInjector<DaggerApplication> {
 
