@@ -1,22 +1,31 @@
 package com.example.matthew.ticketmaster_mvvm.modules.list.viewmodel
 
+import android.app.usage.UsageEvents
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
+import com.example.matthew.ticketmaster_mvvm.BuildConfig
+import com.example.matthew.ticketmaster_mvvm.model.Event
+import com.example.matthew.ticketmaster_mvvm.network.TicketMasterApiService
+import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
-
-/**
- * Created by Matthew on 10/06/2018.
- */
 
 /**
  * view model for [ListActivity]
  * will handle api calls using LiveData
+ *
+ * @author Matthew Howells
  */
-class ListViewModel @Inject constructor() : ViewModel() {
+class ListViewModel @Inject constructor( private val mApiService: TicketMasterApiService, private val mGson: Gson) : ViewModel() {
+
+    companion object {
+        val TAG : String = ListViewModel::class.java.simpleName.toString()
+    }
 
     //temporarily a String to be updated later when data type is created
-    val mTicketLiveData = MutableLiveData<ArrayList<String>>()
+    val mEventLiveData = MutableLiveData<ArrayList<Event>>()
 
     private val mDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -24,16 +33,22 @@ class ListViewModel @Inject constructor() : ViewModel() {
      * updates [mTicketLiveData] with [Ticket] retrieved from API call
      * TODO('Update this call to use data retrieved from call')
      */
-    fun updateLiveData() {
-        mTicketLiveData.postValue(ArrayList())
+    fun updateLiveData(events: ArrayList<Event>) {
+        mEventLiveData.postValue(events)
     }
 
     /**
      * makes #unknownapicall api call
      */
     fun fetchEvents() {
-
-        //Make API call to get events
+        mApiService.getEvents(apiKey = BuildConfig.API_KEY, marketID = "202",size = 50)
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .subscribe({it.eventData?.events?.let {
+                    updateLiveData(it)
+                } }, { _ ->
+                }) {
+                }.addTo(mDisposable)
     }
 
     /**

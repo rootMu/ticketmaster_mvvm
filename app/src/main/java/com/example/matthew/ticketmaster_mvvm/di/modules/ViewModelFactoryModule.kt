@@ -12,7 +12,7 @@ import dagger.multibindings.IntoMap
 /**
  * Binds view model factory
  *
- * Created by Matthew on 10/06/2018.
+ * @author Matthew Howells
  */
 @Module
 abstract class ViewModelFactoryModule {

@@ -6,7 +6,9 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * Created by Matthew on 10/06/2018.
+ * Android Specific Dependancies
+ *
+ * @author Matthew Howells
  */
 
 @Module

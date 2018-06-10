@@ -4,12 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.matthew.ticketmaster_mvvm.model.Event
+import kotlinx.android.synthetic.main.list_item.view.*
 
 /**
  * Created by Matthew on 10/06/2018.
  */
 
-class ListAdapter (val eventData: ArrayList<String>, val clickListener: (String) -> Unit) :
+class ListAdapter (val eventData: ArrayList<Event>, val clickListener: (Event) -> Unit) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -27,9 +29,9 @@ class ListAdapter (val eventData: ArrayList<String>, val clickListener: (String)
     override fun getItemCount() = eventData.size
 
     class PartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(eventData: String, clickListener: (String) -> Unit) {
-
-            itemView.setOnClickListener { clickListener(eventData) }
+        fun bind(event: Event, clickListener: (Event) -> Unit) {
+            itemView.tvTitle.text = event.name
+            itemView.setOnClickListener { clickListener(event) }
         }
     }
 }
