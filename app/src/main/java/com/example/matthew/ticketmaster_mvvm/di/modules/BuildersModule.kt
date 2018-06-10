@@ -1,6 +1,6 @@
 package com.example.matthew.ticketmaster_mvvm.di.modules
 
-import com.example.matthew.ticketmaster_mvvm.ListActivity
+import com.example.matthew.ticketmaster_mvvm.modules.list.ui.ListActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
