@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!--label style-->
+    <style name="LabelTextStyle">
+        <item name="android:textColor">@color/colorLabel</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:bottomOffset">0dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="LabelTitleStyle" parent="@style/Base.TextAppearance.AppCompat.Title.Inverse">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
 </resources>
