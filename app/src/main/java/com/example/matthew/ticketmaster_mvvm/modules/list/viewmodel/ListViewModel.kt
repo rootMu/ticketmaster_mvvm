@@ -1,11 +1,10 @@
 package com.example.matthew.ticketmaster_mvvm.modules.list.viewmodel
 
-import android.app.usage.UsageEvents
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.example.matthew.ticketmaster_mvvm.BuildConfig
-import com.example.matthew.ticketmaster_mvvm.model.Event
+import com.example.matthew.ticketmaster_mvvm.model.event.Event
 import com.example.matthew.ticketmaster_mvvm.network.TicketMasterApiService
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
@@ -54,8 +53,8 @@ class ListViewModel @Inject constructor( private val mApiService: TicketMasterAp
     /**
      * favourites the given event
      */
-    fun favouriteEvent(event: String) {
-
+    fun favouriteEvent(id: String) {
+        Log.d(TAG,"id: $id")
         //saves to favourites list
     }
 
