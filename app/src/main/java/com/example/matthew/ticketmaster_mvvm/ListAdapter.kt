@@ -18,18 +18,18 @@ class ListAdapter (val eventData: ArrayList<Event>, val clickListener: (Event) -
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.list_item, parent, false)
-        return PartViewHolder(view)
+        return EventViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         // Populate ViewHolder with data that corresponds to the position in the list
         // which we are told to load
-        (holder as PartViewHolder).bind(eventData[position], clickListener)
+        (holder as EventViewHolder).bind(eventData[position], clickListener)
     }
 
     override fun getItemCount() = eventData.size
 
-    class PartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(event: Event, clickListener: (Event) -> Unit) {
             itemView.tvTitle.text = event.name
@@ -50,31 +50,39 @@ class ListAdapter (val eventData: ArrayList<Event>, val clickListener: (Event) -
             }
 
             setFavourite(event, clickListener)
-            setShowHide()
+            setShowHide(event)
         }
 
-        private fun setShowHide() {
-            //reset values for recycler items
-            itemView.showHide.isActivated = false
-            itemView.eventInfo.visibility = View.VISIBLE
+        private fun setShowHide(event: Event) {
+
+            event.collapsed?.let{
+                itemView.showHide?.isActivated = it
+            }
+
+            showHideEvent(event.collapsed)
             //set onclicklistener to toggle visibility
             itemView.showHide.setOnClickListener({
                 itemView.showHide.isActivated = !itemView.showHide.isActivated
-                when(itemView.showHide.isActivated ){
-                    true -> itemView.eventInfo.visibility = View.GONE
-                    false -> itemView.eventInfo.visibility = View.VISIBLE
-                }
+                event.collapsed = itemView.showHide.isActivated
+                showHideEvent(event.collapsed)
             })
         }
 
+        private fun showHideEvent(collapsed: Boolean){
+            when(collapsed){
+                true -> itemView.eventInfo.visibility = View.GONE
+                false -> itemView.eventInfo.visibility = View.VISIBLE
+            }
+        }
+
         private fun setFavourite(event: Event, clickListener: (Event) -> Unit) {
-            //TODO: read from room
-            //reset values for recycler items
-            itemView.favourite.isActivated = false
+
+            event.favourite?.let {
+                itemView.favourite?.isActivated = it
+            }
             //set onclicklistener to toggle favourite
             itemView.favourite.setOnClickListener({
                 clickListener(event)
-                itemView.favourite.isActivated = !itemView.favourite.isActivated
             })
         }
     }
