@@ -24,6 +24,8 @@ class ListViewModel @Inject constructor( private val mApiService: TicketMasterAp
 
     companion object {
         val TAG : String = ListViewModel::class.java.simpleName.toString()
+        val marketId = "202" //marketID for London TODO update this value to call from an enum of available ids
+        val size = 50
     }
 
     private var mDb: EventDataBase? = null
@@ -144,7 +146,7 @@ class ListViewModel @Inject constructor( private val mApiService: TicketMasterAp
      * makes #getEvents api call
      */
     fun fetchEvents() {
-        mApiService.getEvents(apiKey = BuildConfig.API_KEY, marketID = "202",size = 50)
+        mApiService.getEvents(apiKey = BuildConfig.API_KEY, marketID = marketId,size = size)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
                 .subscribe({it.eventData?.events?.let {
