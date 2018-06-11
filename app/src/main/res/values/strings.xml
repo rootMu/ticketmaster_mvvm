@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ticketmastermvvm</string>
+    <string name="venue">Venue</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="favourites">Favourites</string>
+    <string name="events">Events</string>
 </resources>

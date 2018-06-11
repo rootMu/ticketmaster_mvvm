@@ -21,6 +21,8 @@ class Event(
         @SerializedName("dates") val dates: Dates,
         @SerializedName("images") val images: ArrayList<Image>? = null,
         @SerializedName("info") val info: String = "",
-        @SerializedName("pleaseNote") val pleaseNote: String = ""
+        @SerializedName("pleaseNote") val pleaseNote: String = "",
+        var favourite: Boolean = false,
+        var collapsed: Boolean = false
 
 ) : Parcelable
