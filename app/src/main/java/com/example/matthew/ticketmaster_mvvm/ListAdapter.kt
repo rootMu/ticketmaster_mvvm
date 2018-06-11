@@ -1,21 +1,12 @@
 package com.example.matthew.ticketmaster_mvvm
 
-import android.content.Context
-import android.provider.MediaStore
-import android.support.v7.widget.DrawableUtils
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.example.matthew.ticketmaster_mvvm.R.id.image
-import com.example.matthew.ticketmaster_mvvm.R.id.tvInfo
 import com.example.matthew.ticketmaster_mvvm.model.event.Event
-import com.example.matthew.ticketmaster_mvvm.model.image.Image
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.text.AttributedCharacterIterator
 
 /**
  * Created by Matthew on 10/06/2018.
