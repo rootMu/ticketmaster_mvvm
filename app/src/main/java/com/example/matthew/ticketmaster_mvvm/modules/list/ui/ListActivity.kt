@@ -3,13 +3,14 @@ package com.example.matthew.ticketmaster_mvvm.modules.list.ui
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.matthew.ticketmaster_mvvm.ListAdapter
 import com.example.matthew.ticketmaster_mvvm.R
-import com.example.matthew.ticketmaster_mvvm.model.Event
+import com.example.matthew.ticketmaster_mvvm.model.event.Event
 import com.example.matthew.ticketmaster_mvvm.modules.list.viewmodel.ListViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_list.*
@@ -63,7 +64,7 @@ class ListActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshList
         
         //set recyclerview
         list.layoutManager = LinearLayoutManager(this)
-        list.adapter = ListAdapter(mEventList, { eventData: Event -> favouriteEvent(eventData.name) })
+        list.adapter = ListAdapter(mEventList, { event: Event -> favouriteEvent(event.id) })
         list.setHasFixedSize(true)
     }
 

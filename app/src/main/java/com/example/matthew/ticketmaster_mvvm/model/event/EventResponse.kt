@@ -1,10 +1,13 @@
-package com.example.matthew.ticketmaster_mvvm.model
+package com.example.matthew.ticketmaster_mvvm.model.event
 
 import com.google.gson.annotations.SerializedName
 
 /**
- * Created by Matthew on 10/06/2018.
+ * Response class for Event Api call, contains the [EventData]
+ *
+ * @author Matthew Howells
  */
+
 class EventResponse {
 
     @SerializedName("_embedded")

@@ -1,6 +1,6 @@
 package com.example.matthew.ticketmaster_mvvm.network
 
-import com.example.matthew.ticketmaster_mvvm.model.EventResponse
+import com.example.matthew.ticketmaster_mvvm.model.event.EventResponse
 import io.reactivex.Flowable
 import retrofit2.http.*
 
